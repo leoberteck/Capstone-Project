@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_size">56sp</dimen>
+    <dimen name="title_margin_vertical">40dp</dimen>
+    <dimen name="title_margin_horizontal">40dp</dimen>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="vm" type="com.leoberteck.whattheword.mvp.interfaces.Title.TitlePresenter" />
+    </data>
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_play"
+            android:backgroundTint="@color/colorAccent"
+            android:tint="@color/primaryText"
+            android:onClick="@{() -> vm.onPlayClick()}"/>
+    </FrameLayout>
+</layout>
