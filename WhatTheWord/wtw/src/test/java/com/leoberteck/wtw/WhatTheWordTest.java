@@ -35,15 +35,14 @@ public class WhatTheWordTest {
         final String word = "Potato";
         final String definition = "Something I love <3";
         final long previousScore = 123456;
-        final Integer beatenWordId = 999;
+        final Long beatenWordId = 999L;
 
         GameStatus previous = new GameStatusImpl();
+        previous.setId(beatenWordId);
         previous.setScore(previousScore);
-        previous.setBeatenWords(new ArrayList<Integer>());
-        previous.getBeatenWords().add(beatenWordId);
+        previous.setBeatenWords(new ArrayList<Long>());
 
-        GameStatus gameStatus = whatTheWord.startNewGame(
-                word, definition, previous);
+        GameStatus gameStatus = whatTheWord.startNewGame(word, definition, previous);
         Assert.assertEquals(previousScore, gameStatus.getScore());
         Assert.assertEquals(word, gameStatus.getWord());
         Assert.assertEquals(definition, gameStatus.getDefinition());
@@ -59,40 +58,45 @@ public class WhatTheWordTest {
     public void calculateGameScore_FullScore() {
         GameStatus gameStatus = new GameStatusImpl();
         gameStatus.setHearts(5);
-        long score = whatTheWord.calculateGameScore(gameStatus);
-        Assert.assertEquals(WhatTheWord.MAX_SCORE, score);
+        gameStatus.setScore(0);
+        whatTheWord.calculateRightGuess(gameStatus);
+        Assert.assertEquals(WhatTheWord.MAX_SCORE, gameStatus.getScore());
     }
 
     @Test
     public void calculateGameScore_OneWrongGues() {
         GameStatus gameStatus = new GameStatusImpl();
         gameStatus.setHearts(4);
-        long score = whatTheWord.calculateGameScore(gameStatus);
-        Assert.assertEquals(WhatTheWord.MAX_SCORE/2, score);
+        gameStatus.setScore(0);
+        whatTheWord.calculateRightGuess(gameStatus);
+        Assert.assertEquals(WhatTheWord.MAX_SCORE/2, gameStatus.getScore());
     }
 
     @Test
     public void calculateGameScore_TwoWrongGuesses() {
         GameStatus gameStatus = new GameStatusImpl();
         gameStatus.setHearts(3);
-        long score = whatTheWord.calculateGameScore(gameStatus);
-        Assert.assertEquals(WhatTheWord.MAX_SCORE/4, score);
+        gameStatus.setScore(0);
+        whatTheWord.calculateRightGuess(gameStatus);
+        Assert.assertEquals(WhatTheWord.MAX_SCORE/4, gameStatus.getScore());
     }
 
     @Test
     public void calculateGameScore_ThreeWrongGuesses() {
         GameStatus gameStatus = new GameStatusImpl();
         gameStatus.setHearts(2);
-        long score = whatTheWord.calculateGameScore(gameStatus);
-        Assert.assertEquals(WhatTheWord.MAX_SCORE/8, score);
+        gameStatus.setScore(0);
+        whatTheWord.calculateRightGuess(gameStatus);
+        Assert.assertEquals(WhatTheWord.MAX_SCORE/8, gameStatus.getScore());
     }
 
     @Test
     public void calculateGameScore_FourWrongGuesses() {
         GameStatus gameStatus = new GameStatusImpl();
         gameStatus.setHearts(1);
-        long score = whatTheWord.calculateGameScore(gameStatus);
-        Assert.assertEquals(WhatTheWord.MAX_SCORE/16, score);
+        gameStatus.setScore(0);
+        whatTheWord.calculateRightGuess(gameStatus);
+        Assert.assertEquals(WhatTheWord.MAX_SCORE/16, gameStatus.getScore());
     }
 
     @Test

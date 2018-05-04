@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="vm" type="com.leoberteck.whattheword.mvp.interfaces.Game.GamePresenter"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.GameActivity"
+        android:background="?android:attr/windowBackground">
+        <include layout="@layout/include_game_status"
+            android:id="@+id/gameStatusContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:vm="@{vm}"/>
+        <LinearLayout
+            android:id="@+id/gameContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="150dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="@dimen/tablet_vertical_margin"
+            android:layout_marginBottom="@dimen/tablet_vertical_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gameStatusContainer"
+            app:layout_constraintEnd_toEndOf="parent">
+            <include layout="@layout/include_word_definition"
+                android:layout_weight="2"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                app:vm="@{vm}"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/include_guess_field"
+                    android:layout_gravity="bottom"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    app:vm="@{vm}"/>
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

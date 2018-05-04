@@ -12,24 +12,30 @@
         tools:context=".view.TitleActivity"
         tools:layout_editor_absoluteY="25dp">
 
-        <include layout="@layout/include_title_large"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_height="wrap_content"
+        <include
+            android:id="@+id/include_title_large"
+            layout="@layout/include_title_large"
             android:layout_width="0dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"/>
-
-        <include layout="@layout/include_play_button"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/titleContainer"
-            app:layout_constraintBottom_toTopOf="@id/scoreContainer"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            layout="@layout/include_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/include_best_score"
             app:layout_constraintEnd_toEndOf="parent"
-            app:vm="@{vm}"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_title_large"
+            app:vm="@{vm}" />
 
         <include layout="@layout/include_best_score"
+            android:id="@+id/include_best_score"
             android:visibility="@{vm.bestScore == null ? View.INVISIBLE : View.VISIBLE }"
             android:layout_height="wrap_content"
             android:layout_width="0dp"

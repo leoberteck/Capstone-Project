@@ -3,15 +3,16 @@ package com.leoberteck.wtw;
 import com.leoberteck.wtw.entities.GameStatus;
 import com.leoberteck.wtw.entities.GameStatusImpl;
 import com.leoberteck.wtw.exceptions.GameOverException;
+import com.leoberteck.wtw.utils.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashSet;
+import java.util.List;
 
 public class WhatTheWord {
 
     public static final int INITIAL_HEARTS = 5;
     public static final int MAX_SCORE = 10000;
-    private static final Random rand = new Random();
 
     /**
      * Instantiates a new GameStatus based on a previous game session
@@ -30,7 +31,10 @@ public class WhatTheWord {
         gameStatus.setHearts(INITIAL_HEARTS);
         gameStatus.setRevealedLetters(new ArrayList<Integer>());
         gameStatus.setScore(lastGame != null ? lastGame.getScore() : 0L);
-        gameStatus.setBeatenWords(lastGame != null ? lastGame.getBeatenWords() : new ArrayList<Integer>());
+        gameStatus.setBeatenWords(lastGame != null ? lastGame.getBeatenWords() : new HashSet<Long>());
+        if(lastGame != null){
+            gameStatus.getBeatenWords().add(lastGame.getId());
+        }
         return gameStatus;
     }
 
@@ -42,15 +46,13 @@ public class WhatTheWord {
      4 wrong guesses: 625 points
      two elevated by the number of wrong guesses the user had divided by 100000
      * @param gameStatus
-     * @return The score based on wrong guesses
      */
-    public long calculateGameScore(GameStatus gameStatus){
+    public void calculateRightGuess(GameStatus gameStatus){
         long score = MAX_SCORE;
         int divider = (int)Math.pow(2, INITIAL_HEARTS - gameStatus.getHearts());
         score = score / divider;
-        return score;
+        gameStatus.setScore(gameStatus.getScore() + score);
     }
-
 
     /**
      * Updates the game status when the user makes a wrong guess.
@@ -67,10 +69,10 @@ public class WhatTheWord {
             throw new GameOverException();
         }
         String word = gameStatus.getWord();
-        int letterIndex = rand.nextInt(word.length());
+        List<Integer> indexes = CollectionUtils.range(0, word.length()-1);
+        indexes.removeAll(gameStatus.getRevealedLetters());
+        int letterIndex = CollectionUtils.getRandomPosition(indexes);
         gameStatus.getRevealedLetters().add(letterIndex);
         return letterIndex;
     }
-
-
 }

@@ -26,8 +26,7 @@ import java.util.stream.Collectors;
     version = "v1",
     namespace = @ApiNamespace(
         ownerDomain = "backend.leoberteck.com",
-        ownerName = "backend.leoberteck.com",
-        packagePath = ""
+        ownerName = "backend.leoberteck.com"
     )
 )
 public class DictionaryResource {

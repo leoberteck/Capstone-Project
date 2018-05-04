@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="score" type="String"/>
+        <variable name="word" type="String"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_width="250dp"
+        tools:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Wtw.Medium"
+            android:text="@string/final_score_is"/>
+        <TextView
+            android:id="@+id/textViewFinalScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            style="@style/TextAppearance.Wtw.Header.Large"
+            android:text="@{score}"
+            tools:text="999999" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.Wtw.Medium"
+            tools:text="Potato"
+            android:text="@{word}"/>
+    </LinearLayout>
+</layout>

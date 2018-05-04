@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.leoberteck.whattheword.contract.ScoreContract;
-import com.leoberteck.whattheword.entities.Score;
+import com.leoberteck.whattheword.data.contract.ScoreContract;
+import com.leoberteck.whattheword.data.entities.ScoreEntity;
 import com.leoberteck.whattheword.utils.CursorWrapper;
 
-public class ScoreLoader extends AsyncTaskLoader<Score>{
+public class ScoreLoader extends AsyncTaskLoader<ScoreEntity>{
 
     public ScoreLoader(@NonNull Context context) {
         super(context);
@@ -18,8 +18,8 @@ public class ScoreLoader extends AsyncTaskLoader<Score>{
 
     @Nullable
     @Override
-    public Score loadInBackground() {
-        Score score = null;
+    public ScoreEntity loadInBackground() {
+        ScoreEntity score = null;
         Cursor cursor = getContext().getContentResolver().query(
             ScoreContract.contractEntry.getContentUri()
             , ScoreContract.contractEntry.getColumns()

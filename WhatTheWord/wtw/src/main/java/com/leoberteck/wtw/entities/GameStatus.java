@@ -1,8 +1,16 @@
 package com.leoberteck.wtw.entities;
 
 import java.util.List;
+import java.util.Set;
 
 public interface GameStatus {
+
+    Long getId();
+
+    void setId(long id);
+
+    int getLevel();
+
     long getScore();
 
     void setScore(long score);
@@ -23,7 +31,7 @@ public interface GameStatus {
 
     void setHearts(int hearts);
 
-    List<Integer> getBeatenWords();
+    Set<Long> getBeatenWords();
 
-    void setBeatenWords(List<Integer> beatenWords);
+    void setBeatenWords(Set<Long> beatenWords);
 }

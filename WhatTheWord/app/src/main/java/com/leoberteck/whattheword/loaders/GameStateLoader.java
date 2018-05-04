@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.leoberteck.whattheword.contract.GameStatusContract;
-import com.leoberteck.whattheword.entities.GameStatusEntity;
+import com.leoberteck.whattheword.data.contract.GameStatusContract;
+import com.leoberteck.whattheword.data.entities.GameStatusEntity;
 import com.leoberteck.whattheword.utils.CursorWrapper;
 
 public class GameStateLoader extends AsyncTaskLoader<GameStatusEntity> {

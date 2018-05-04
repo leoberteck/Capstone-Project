@@ -21,14 +21,14 @@ public class CursorWrapper implements Cursor {
         return new CursorWrapper(cursor);
     }
 
-    public CursorWrapper(@NonNull Cursor cursor) {
+    private CursorWrapper(@NonNull Cursor cursor) {
         this.cursor = cursor;
     }
 
     @NonNull
-    private Cursor cursor;
+    private final Cursor cursor;
 
-    private Map<String, Integer> indexCache = new HashMap<>();
+    private final Map<String, Integer> indexCache = new HashMap<>();
 
     //region Cursor implementation
 

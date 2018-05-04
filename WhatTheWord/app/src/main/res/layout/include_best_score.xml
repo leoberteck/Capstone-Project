@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="vm" type="com.leoberteck.whattheword.mvp.interfaces.Title.TitlePresenter" />
     </data>
-    <FrameLayout android:id="@+id/scoreContainer"
-        android:layout_width="0dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/scoreContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
+        <ImageButton
+            android:id="@+id/buttonLeaderboads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trophy_36dp"
+            android:background="@color/transparent"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/show_leaderboards"
+            android:onClick="@{() -> vm.onShowLeaderboardsClick()}"/>
         <TextView
             android:id="@+id/textViewBestScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_margin="20dp"
-            android:text="@{vm.bestScore}"
-            style="@style/Base.TextAppearance.AppCompat.Medium"/>
-        <!--android:text="@{@string/best_score(vm.bestScore)}"-->
+            android:text="@{@string/best_score_with_score(vm.bestScore)}"
+            tools:text="Best Score: 9999999"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            app:layout_constraintStart_toEndOf="@+id/buttonLeaderboads"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
         <Button
             android:id="@+id/buttonClearScore"
             android:layout_width="wrap_content"
@@ -25,6 +41,9 @@
             android:layout_marginEnd="20dp"
             android:backgroundTint="@color/colorAccent"
             android:text="@string/clear"
-            android:onClick="@{() -> vm.onClearScoreClick()}"/>
-    </FrameLayout>
+            android:onClick="@{() -> vm.onClearScoreClick()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
 </layout>

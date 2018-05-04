@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "808994969644",
+    "firebase_url": "https://what-the-word.firebaseio.com",
+    "project_id": "what-the-word",
+    "storage_bucket": "what-the-word.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808994969644:android:9fc538c4e4ec5aeb",
+        "android_client_info": {
+          "package_name": "com.leoberteck.whattheword"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808994969644-e1p089jso2rr133k8c6a25i44oc380dr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leoberteck.whattheword",
+            "certificate_hash": "2d0f09ff545b05dba013aaf99bd988ea20e9ba9a"
+          }
+        },
+        {
+          "client_id": "808994969644-5ffvqapl4bftpquvsjieq4ej5b7mab47.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "808994969644-v5082gql99co7a9gnv6sntpl9ucfaiku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leoberteck.whattheword",
+            "certificate_hash": "18b3cf416edb2920b6e2a33c8a41ae15317c8a19"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvhYnFZw2Eh40GF8f5iPenBFCuK4jQoNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808994969644-5ffvqapl4bftpquvsjieq4ej5b7mab47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

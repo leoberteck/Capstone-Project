@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable name="score" type="String"/>
+        <variable name="word" type="String"/>
+        <variable name="highScore" type="Boolean"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_width="250dp"
+        tools:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_high_score"
+            style="@style/TextAppearance.Wtw.Header.Medium"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{highScore == true ? View.VISIBLE : View.GONE}"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trophy_36dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="@{highScore == true ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:id="@+id/textViewFinalScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="@{`+` + score}"
+            style="@style/TextAppearance.Wtw.Header.Large"
+            tools:text="99999"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{word}"
+            style="@style/TextAppearance.Wtw.Medium"
+            tools:text="word"/>
+    </LinearLayout>
+</layout>

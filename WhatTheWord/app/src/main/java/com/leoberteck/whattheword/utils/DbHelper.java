@@ -4,16 +4,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.leoberteck.whattheword.contract.GameStatusContract;
-import com.leoberteck.whattheword.contract.ScoreContract;
+import com.leoberteck.whattheword.BuildConfig;
+import com.leoberteck.whattheword.data.contract.GameStatusContract;
+import com.leoberteck.whattheword.data.contract.ScoreContract;
 
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
-    private static final String DB_NAME = "wtwdb";
 
-    public DbHelper(Context context) {
-        super(context, DB_NAME, null, VERSION);
+    private static SQLiteOpenHelper instance;
+
+    private DbHelper(Context context, String name) {
+        super(context, name, null, VERSION);
     }
 
     @Override
@@ -25,5 +27,12 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public static SQLiteOpenHelper getInstance(Context context) {
+        if(instance == null){
+            instance = new DbHelper(context, BuildConfig.DB_NAME);
+        }
+        return instance;
     }
 }

@@ -1,15 +1,32 @@
 package com.leoberteck.wtw.entities;
 
 import java.util.List;
+import java.util.Set;
 
 public class GameStatusImpl implements GameStatus {
 
+    private Long id;
     private Long score;
     private String definition;
     private String word;
     private List<Integer> revealedLetters;
     private Integer hearts;
-    private List<Integer> beatenWords;
+    private Set<Long> beatenWords;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getLevel() {
+        return getBeatenWords() != null ? getBeatenWords().size() + 1 : 1;
+    }
 
     @Override
     public long getScore() {
@@ -62,12 +79,12 @@ public class GameStatusImpl implements GameStatus {
     }
 
     @Override
-    public List<Integer> getBeatenWords() {
+    public Set<Long> getBeatenWords() {
         return beatenWords;
     }
 
     @Override
-    public void setBeatenWords(List<Integer> beatenWords) {
+    public void setBeatenWords(Set<Long> beatenWords) {
         this.beatenWords = beatenWords;
     }
 }

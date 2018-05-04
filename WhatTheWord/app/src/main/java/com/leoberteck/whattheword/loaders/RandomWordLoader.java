@@ -2,11 +2,10 @@ package com.leoberteck.whattheword.loaders;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.leoberteck.backend.wtwapi.Wtwapi;
 import com.leoberteck.backend.wtwapi.model.WordEntry;
 import com.leoberteck.whattheword.BuildConfig;
@@ -14,6 +13,7 @@ import com.leoberteck.whattheword.BuildConfig;
 import java.io.IOException;
 
 public class RandomWordLoader extends AsyncTaskLoader<WordEntry> {
+    private static final String TAG = RandomWordLoader.class.getSimpleName();
     private Wtwapi wtwapi = null;
 
     public RandomWordLoader(Context context) {
@@ -26,19 +26,14 @@ public class RandomWordLoader extends AsyncTaskLoader<WordEntry> {
             Wtwapi.Builder builder = new Wtwapi.Builder(AndroidHttp.newCompatibleTransport(),
                 new AndroidJsonFactory(), null)
                 .setRootUrl(BuildConfig.ENDPOINTS_SERVER_URL)
-                .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                    @Override
-                    public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                        abstractGoogleClientRequest.setDisableGZipContent(true);
-                    }
-                });
+                .setGoogleClientRequestInitializer(abstractGoogleClientRequest -> abstractGoogleClientRequest.setDisableGZipContent(true));
             wtwapi = builder.build();
         }
         WordEntry result = null;
         try {
             result = wtwapi.word().execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Could not load word :", e);
         }
         return result;
     }

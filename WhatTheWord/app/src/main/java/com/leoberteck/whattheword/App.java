@@ -8,9 +8,4 @@ public class App extends Application {
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
 }

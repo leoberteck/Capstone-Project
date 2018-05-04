@@ -1,25 +1,45 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.cloud.tools.endpoints-framework-client'
+apply from: 'vars.gradle'
 
 android {
-    compileSdkVersion 27
+    signingConfigs {
+        release {
+            keyAlias 'upload'
+            keyPassword UPLOAD_KEY_PASSWORD
+            storeFile file(UPLOAD_KEYSTORE_PATH)
+            storePassword UPLOAD_SCORE_PASSWORD
+        }
+        debug {
+            keyPassword 'android'
+            storeFile file('/home/leonardo/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.leoberteck.whattheword"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "ENDPOINTS_SERVER_URL", ENDPOINTS_SERVER_URL
+        buildConfigField "String", "DB_NAME", DB_NAME
     }
+    testBuildType "staging"
     buildTypes {
         debug {
-            //buildConfigField "String", "ENDPOINTS_SERVER_URL", "\"http://10.0.2.2:8080/_ah/api/\""
-            buildConfigField "String", "ENDPOINTS_SERVER_URL", "\"https://what-the-word.appspot.com/_ah/api/\""
+            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ENDPOINTS_SERVER_URL", "\"https://what-the-word.appspot.com/_ah/api/\""
+            signingConfig signingConfigs.release
+        }
+        staging {
+            initWith(buildTypes.debug)
+            buildConfigField "String", "DB_NAME", String.valueOf(null)
         }
     }
     dataBinding {
@@ -28,23 +48,39 @@ android {
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:design:26.1.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
-    endpointsServer (project(path: ':backend', configuration: 'endpoints'))
-    implementation ('com.google.api-client:google-api-client-android:1.23.0')
-    implementation ('com.google.http-client:google-http-client-android:1.23.0')
+    endpointsServer(project(path: ':backend', configuration: 'endpoints'))
+    implementation 'com.google.api-client:google-api-client-android:1.23.0'
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
     implementation project(':wtw')
-
+    implementation 'com.google.android.gms:play-services-games:15.0.0'
+    implementation 'com.google.android.gms:play-services-auth:15.0.0'
+    implementation 'com.google.firebase:firebase-auth:15.0.0'
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    
-
+    androidTestImplementation ('com.android.support.test:runner:1.0.2') {
+        exclude module: 'support-annotations'
+    }
+    androidTestImplementation ('com.android.support.test.espresso:espresso-core:3.0.1') {
+        exclude module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+    }
+    androidTestImplementation ('com.android.support.test.espresso:espresso-intents:3.0.1') {
+        exclude module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+    }
 }
+
+apply plugin: 'com.google.gms.google-services'
