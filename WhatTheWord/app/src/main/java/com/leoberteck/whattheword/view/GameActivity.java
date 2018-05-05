@@ -64,7 +64,7 @@ public class GameActivity extends GoogleSignInActivity
     private int revealY;
 
     private static final int LOAD_WORD_ENTRY = 2001;
-    private AlertDialog loadingDialog;
+    private AlertDialog currentDialog;
     private View rootLayout;
 
     @Nullable
@@ -195,6 +195,12 @@ public class GameActivity extends GoogleSignInActivity
     }
 
     @Override
+    protected void onDestroy() {
+        hideDialog();
+        super.onDestroy();
+    }
+
+    @Override
     public void onBackPressed() {
         DialogUtils.showConfirmationDialog(this
             , R.string.confirmation
@@ -223,21 +229,21 @@ public class GameActivity extends GoogleSignInActivity
         final View rootView = getLayoutInflater().inflate(R.layout.dialog_loading, null);
         final String alphabet = "abcdefghijklmnopqrstuvxwyz";
 
-        loadingDialog = new AlertDialog.Builder(this)
+        currentDialog = new AlertDialog.Builder(this)
             .setTitle(R.string.please_wait)
             .setView(rootView)
             .setCancelable(false)
             .setOnDismissListener(dialog -> unlockScreen())
             .create();
-        loadingDialog.setOnShowListener(dialog -> {
+        currentDialog.setOnShowListener(dialog -> {
             TextView textViewAnimated = rootView.findViewById(R.id.textViewAnimatedText);
             AnimationUtils.animateRange(textViewAnimated, (Object[])alphabet.split(""));
         });
-        loadingDialog.show();
+        currentDialog.show();
     }
 
-    private void hideLoading(){
-        if(loadingDialog != null) loadingDialog.dismiss();
+    public void hideDialog(){
+        if(currentDialog != null && currentDialog.isShowing()) currentDialog.dismiss();
     }
 
     @Override
@@ -254,7 +260,7 @@ public class GameActivity extends GoogleSignInActivity
 
         final View rootView = dialogSuccessBinding.getRoot();
 
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
+        currentDialog = new AlertDialog.Builder(this)
             .setTitle(R.string.you_got_it)
             .setView(dialogSuccessBinding.getRoot())
             .setCancelable(false)
@@ -262,12 +268,12 @@ public class GameActivity extends GoogleSignInActivity
             .setOnDismissListener(dialog -> unlockScreen())
             .create();
 
-        alertDialog.setOnShowListener(dialog -> {
+        currentDialog.setOnShowListener(dialog -> {
             TextView finalScore = rootView.findViewById(R.id.textViewFinalScore);
             AnimationUtils.animateRange((int) score, (int) add, finalScore);
         });
 
-        alertDialog.show();
+        currentDialog.show();
     }
 
     @Override
@@ -281,12 +287,14 @@ public class GameActivity extends GoogleSignInActivity
 
         lockScreen();
 
-        new AlertDialog.Builder(this)
+        currentDialog = new AlertDialog.Builder(this)
             .setTitle(R.string.game_over)
             .setView(dialogGameOverBinding.getRoot())
             .setCancelable(false)
             .setPositiveButton(R.string.play_again, onDialogClose)
-            .setOnDismissListener(dialog -> unlockScreen()).show();
+            .setOnDismissListener(dialog -> unlockScreen()).create();
+
+        currentDialog.show();
     }
 
     private void hideKeyboard(){
@@ -377,7 +385,7 @@ public class GameActivity extends GoogleSignInActivity
 
     @Override
     public void onLoadFinished(@NonNull Loader<WordEntry> loader, WordEntry data) {
-        hideLoading();
+        hideDialog();
         if(data != null){
             presenter.initGame(data);
         } else {
@@ -390,7 +398,7 @@ public class GameActivity extends GoogleSignInActivity
 
     @Override
     public void onLoaderReset(@NonNull Loader<WordEntry> loader) {
-        hideLoading();
+        hideDialog();
     }
 
     public Game.GamePresenter getPresenter() {

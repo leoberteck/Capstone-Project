@@ -12,7 +12,7 @@ android {
         }
         debug {
             keyPassword 'android'
-            storeFile file('/home/leonardo/.android/debug.keystore')
+            storeFile file(DEBUG_KEYSTORE_PATH)
             storePassword 'android'
         }
     }
@@ -67,7 +67,6 @@ dependencies {
     implementation project(':wtw')
     implementation 'com.google.android.gms:play-services-games:15.0.0'
     implementation 'com.google.android.gms:play-services-auth:15.0.0'
-    implementation 'com.google.firebase:firebase-auth:15.0.0'
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation ('com.android.support.test:runner:1.0.2') {

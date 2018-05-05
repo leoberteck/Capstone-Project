@@ -1,0 +1,8 @@
+project.ext {
+    DB_NAME = "\"wtwdb\""
+    UPLOAD_KEY_PASSWORD = "07531590"
+    UPLOAD_SCORE_PASSWORD = "07531590"
+    UPLOAD_KEYSTORE_PATH = "keystore/upload.jks"
+    DEBUG_KEYSTORE_PATH = "keystore/debug.keystore"
+    ENDPOINTS_SERVER_URL = "\"https://what-the-word.appspot.com/_ah/api/\""
+}

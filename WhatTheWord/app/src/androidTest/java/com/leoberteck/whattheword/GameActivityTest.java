@@ -2,7 +2,6 @@ package com.leoberteck.whattheword;
 
 import android.app.Activity;
 import android.app.Instrumentation.ActivityResult;
-import android.arch.lifecycle.ViewModelStores;
 import android.content.Intent;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingRegistry;
@@ -16,7 +15,6 @@ import com.leoberteck.whattheword.data.entities.ScoreEntity;
 import com.leoberteck.whattheword.view.GameActivity;
 
 import org.junit.Assert;
-import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +35,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
 
 @RunWith(AndroidJUnit4.class)
-@FixMethodOrder
 public class GameActivityTest {
 
     @Rule
@@ -45,6 +42,54 @@ public class GameActivityTest {
 
     private static final String WORD = "banana";
     private static final String DEFINITION = "a fruit";
+
+    @Test
+    public void gameWinDialogTest(){
+
+        insertMockGameStatusData();
+        launchActivity();
+        registerIdlingResources();
+
+        onView(withId(R.id.editTextGuess)).perform(typeText(testRule.getActivity().getPresenter().getGameStatus().getWord()));
+        onView(withId(R.id.buttonGuess)).perform(click());
+        onView(withText(R.string.you_got_it)).check(matches(isDisplayed()));
+
+        clearMockData();
+        resetPresenter();
+        unregisterIdlingResources();
+    }
+
+    @Test
+    public void gameOverDialogTest(){
+
+        insertMockGameStatusData();
+        launchActivity();
+        registerIdlingResources();
+
+        onView(withId(R.id.editTextGuess)).perform(typeText("fsdsfsd"));
+        onView(withId(R.id.buttonGuess)).perform(click());
+        onView(withText(R.string.final_score_is)).check(matches(isDisplayed()));
+
+        clearMockData();
+        resetPresenter();
+        unregisterIdlingResources();
+    }
+
+    @Test
+    public void bestScoreDialogTest(){
+        insertMockGameStatusData();
+        insertMockScoreData();
+        launchActivity();
+        registerIdlingResources();
+
+        onView(withId(R.id.editTextGuess)).perform(typeText(testRule.getActivity().getPresenter().getGameStatus().getWord()));
+        onView(withId(R.id.buttonGuess)).perform(click());
+        onView(withText(R.string.new_high_score)).check(matches(isDisplayed()));
+
+        clearMockData();
+        resetPresenter();
+        unregisterIdlingResources();
+    }
 
     @Test
     public void continueGameTest() {
@@ -61,6 +106,7 @@ public class GameActivityTest {
 
         //Cleanup
         clearMockData();
+        resetPresenter();
         unregisterIdlingResources();
     }
 
@@ -68,60 +114,12 @@ public class GameActivityTest {
     public void startNewGameTest() {
         launchActivity();
         registerIdlingResources();
-
-        Espresso.onIdle(() -> {
-            Assert.assertNotNull(testRule.getActivity().getPresenter().getHiddenWord());
-            Assert.assertNotNull(testRule.getActivity().getPresenter().getDefinition());
-            Assert.assertEquals("1", testRule.getActivity().getPresenter().getLevel());
-            Assert.assertEquals("0", testRule.getActivity().getPresenter().getScore());
-            return null;
-        });
-
-        unregisterIdlingResources();
-    }
-
-    @Test
-    public void gameWinDialogTest(){
-
-        insertMockGameStatusData();
-        launchActivity();
-        registerIdlingResources();
-
-        onView(withId(R.id.editTextGuess)).perform(typeText(WORD));
-        onView(withId(R.id.buttonGuess)).perform(click());
-        onView(withText(R.string.you_got_it)).check(matches(isDisplayed()));
-
-        clearMockData();
-        unregisterIdlingResources();
-    }
-
-    @Test
-    public void gameOverDialogTest(){
-
-        insertMockGameStatusData();
-        launchActivity();
-        registerIdlingResources();
-
-        onView(withId(R.id.editTextGuess)).perform(typeText("fsdsfsd"));
-        onView(withId(R.id.buttonGuess)).perform(click());
-        onView(withText(R.string.final_score_is)).check(matches(isDisplayed()));
-
-        clearMockData();
-        unregisterIdlingResources();
-    }
-
-    @Test
-    public void bestScoreDialogTest(){
-        insertMockGameStatusData();
-        insertMockScoreData();
-        launchActivity();
-        registerIdlingResources();
-
-        onView(withId(R.id.editTextGuess)).perform(typeText(WORD));
-        onView(withId(R.id.buttonGuess)).perform(click());
-        onView(withText(R.string.new_high_score)).check(matches(isDisplayed()));
-
-        clearMockData();
+        Espresso.onIdle();
+        Assert.assertNotNull(testRule.getActivity().getPresenter().getHiddenWord());
+        Assert.assertNotNull(testRule.getActivity().getPresenter().getDefinition());
+        Assert.assertEquals("1", testRule.getActivity().getPresenter().getLevel());
+        Assert.assertEquals("0", testRule.getActivity().getPresenter().getScore());
+        resetPresenter();
         unregisterIdlingResources();
     }
 
@@ -158,8 +156,11 @@ public class GameActivityTest {
     }
 
     private void clearMockData(){
-        ViewModelStores.of(testRule.getActivity()).clear();
         new GameStatusDao(getInstrumentation().getContext().getContentResolver()).clearSinc();
         new ScoreDao(getInstrumentation().getContext().getContentResolver()).clearSinc();
+    }
+
+    private void resetPresenter(){
+        testRule.getActivity().getPresenter().setGameStatus(null);
     }
 }
