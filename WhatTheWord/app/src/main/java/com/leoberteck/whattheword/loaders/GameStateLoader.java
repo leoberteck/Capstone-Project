@@ -8,7 +8,7 @@ import com.leoberteck.whattheword.data.contract.GameStatusContract;
 import com.leoberteck.whattheword.data.entities.GameStatusEntity;
 import com.leoberteck.whattheword.utils.CursorWrapper;
 
-public class GameStateLoader extends AsyncTaskLoader<GameStatusEntity> {
+class GameStateLoader extends AsyncTaskLoader<GameStatusEntity> {
 
     public GameStateLoader(Context context) {
         super(context);

@@ -14,7 +14,7 @@ import com.leoberteck.whattheword.data.entities.ScoreEntity;
 import com.leoberteck.whattheword.view.TitleActivity;
 
 public class PlayWidget extends AppWidgetProvider {
-    public static String PLAY_WIDGET_BEST_SCORE_EXTRA = "com.leoberteck.whattheword.widget.set_best_score";
+    public static final String PLAY_WIDGET_BEST_SCORE_EXTRA = "com.leoberteck.whattheword.widget.set_best_score";
 
     private long bestScore = 0L;
 
@@ -26,7 +26,7 @@ public class PlayWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
     }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, long bestScore) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId, long bestScore) {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.play_widget);

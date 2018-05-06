@@ -154,7 +154,7 @@ public class GameActivity extends GoogleSignInActivity
         aquireSignIn();
     }
 
-    protected void revealActivity(int x, int y) {
+    private void revealActivity(int x, int y) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             float finalRadius = (float) (Math.max(rootLayout.getWidth(), rootLayout.getHeight()) * 1.1);
 
@@ -174,10 +174,6 @@ public class GameActivity extends GoogleSignInActivity
                     backgroundAnimator.start();
                 }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                }
             });
 
             // make the view visible and start the animation
@@ -242,7 +238,7 @@ public class GameActivity extends GoogleSignInActivity
         currentDialog.show();
     }
 
-    public void hideDialog(){
+    private void hideDialog(){
         if(currentDialog != null && currentDialog.isShowing()) currentDialog.dismiss();
     }
 
@@ -328,16 +324,22 @@ public class GameActivity extends GoogleSignInActivity
     @Override
     public void animateImageView(int index, Animation.AnimationListener listener) {
         int id;
-        if(index == 4){
-            id = R.id.imgHeart4;
-        } else if(index == 3) {
-            id = R.id.imgHeart3;
-        } else if (index == 2) {
-            id = R.id.imgHeart2;
-        } else if (index == 1) {
-            id = R.id.imgHeart1;
-        } else {
-            id = R.id.imgHeart0;
+        switch (index) {
+            case 4:
+                id = R.id.imgHeart4;
+                break;
+            case 3:
+                id = R.id.imgHeart3;
+                break;
+            case 2:
+                id = R.id.imgHeart2;
+                break;
+            case 1:
+                id = R.id.imgHeart1;
+                break;
+            default:
+                id = R.id.imgHeart0;
+                break;
         }
         animateImageView(findViewById(id), listener);
     }

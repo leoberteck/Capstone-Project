@@ -35,5 +35,12 @@
     <string name="leaderboard_id">CgkIrLDu3sUXEAIQAQ</string>
     <string name="show_leaderboards">Show Leaderboards</string>
     <string name="app_id">808994969644</string>
+    <string name="start_game">Start Game</string>
+    <string name="fifth_life_heart">Fifth life heart</string>
+    <string name="fourth_life_heart">Fourth Life heart</string>
+    <string name="third_life_heart">Third life heart</string>
+    <string name="second_life_heart">Second Life Heart</string>
+    <string name="first_life_heart">First life heart</string>
+    <string name="high_score_trophy">High Score Trophy</string>
     <!--<string name="default_web_client_id">808994969644-5ffvqapl4bftpquvsjieq4ej5b7mab47.apps.googleusercontent.com</string>-->
 </resources>

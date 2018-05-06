@@ -42,7 +42,8 @@
             android:backgroundTint="@color/colorAccent"
             android:tint="@color/primaryText"
             android:layout_gravity="center"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:contentDescription="@string/start_game" />
     </LinearLayout>
 
 </RelativeLayout>

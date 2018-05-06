@@ -14,8 +14,8 @@ import com.leoberteck.whattheword.R;
 
 public abstract class GoogleSignInActivity extends AppCompatActivity {
 
-    protected static final int RC_SIGN_IN = 9001;
-    protected GoogleSignInAccount googleSignInAccount;
+    private static final int RC_SIGN_IN = 9001;
+    GoogleSignInAccount googleSignInAccount;
 
 
     @Override
@@ -36,7 +36,7 @@ public abstract class GoogleSignInActivity extends AppCompatActivity {
         }
     }
 
-    protected void aquireSignIn(){
+    void aquireSignIn(){
         if(googleSignInAccount == null){
             GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
             if (googleSignInAccount != null) {
@@ -47,7 +47,7 @@ public abstract class GoogleSignInActivity extends AppCompatActivity {
         }
     }
 
-    protected void signInSilently() {
+    private void signInSilently() {
         GoogleSignInClient signInClient = GoogleSignIn.getClient(
                 this
                 , GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
@@ -62,7 +62,7 @@ public abstract class GoogleSignInActivity extends AppCompatActivity {
                 });
     }
 
-    protected void signInExplicitly() {
+    private void signInExplicitly() {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
                 .requestServerAuthCode(getString(R.string.default_web_client_id))

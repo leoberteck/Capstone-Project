@@ -62,7 +62,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewScore"/>
+                app:layout_constraintTop_toBottomOf="@+id/textViewScore"
+                android:contentDescription="@string/fifth_life_heart" />
             <ImageView
                 android:id="@+id/imgHeart1"
                 android:layout_width="wrap_content"
@@ -72,7 +73,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgHeart0"/>
+                app:layout_constraintTop_toBottomOf="@+id/imgHeart0"
+                android:contentDescription="@string/fourth_life_heart" />
             <ImageView
                 android:id="@+id/imgHeart2"
                 android:layout_width="wrap_content"
@@ -82,7 +84,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgHeart1"/>
+                app:layout_constraintTop_toBottomOf="@+id/imgHeart1"
+                android:contentDescription="@string/third_life_heart" />
             <ImageView
                 android:id="@+id/imgHeart3"
                 android:layout_width="wrap_content"
@@ -92,7 +95,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgHeart2"/>
+                app:layout_constraintTop_toBottomOf="@+id/imgHeart2"
+                android:contentDescription="@string/second_life_heart" />
             <ImageView
                 android:id="@+id/imgHeart4"
                 android:layout_width="wrap_content"
@@ -102,7 +106,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgHeart3"/>
+                app:layout_constraintTop_toBottomOf="@+id/imgHeart3"
+                android:contentDescription="@string/first_life_heart" />
         </android.support.constraint.ConstraintLayout>
         <View
             android:layout_width="1dp"

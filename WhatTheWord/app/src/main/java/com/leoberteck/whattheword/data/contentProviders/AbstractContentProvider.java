@@ -17,7 +17,7 @@ import com.leoberteck.whattheword.utils.DbHelper;
 
 public abstract class AbstractContentProvider extends ContentProvider {
 
-    protected SQLiteOpenHelper sqLiteOpenHelper;
+    private SQLiteOpenHelper sqLiteOpenHelper;
 
     @Override
     public boolean onCreate() {

@@ -8,7 +8,7 @@ import java.util.Random;
 public class CollectionUtils {
     private static final Random random = new Random();
 
-    public static  <T> T getRandomPosition(T[] array) {
+    private static  <T> T getRandomPosition(T[] array) {
         return array[random.nextInt(array.length)];
     }
 

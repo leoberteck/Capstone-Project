@@ -15,7 +15,7 @@ public class AnimationUtils {
         animateRange(textview, valueAnimator, 1500);
     }
 
-    public static void animateRange(final TextView textView, ValueAnimator animator, int duration){
+    private static void animateRange(final TextView textView, ValueAnimator animator, int duration){
         animator.setDuration(duration);
         animator.addUpdateListener(animation -> textView.setText(String.valueOf(animation.getAnimatedValue())));
         animator.start();

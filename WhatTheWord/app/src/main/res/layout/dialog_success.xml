@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_trophy_36dp"
             android:layout_marginBottom="16dp"
-            android:visibility="@{highScore == true ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{highScore == true ? View.VISIBLE : View.GONE}"
+            android:contentDescription="@string/high_score_trophy" />
 
         <TextView
             android:id="@+id/textViewFinalScore"

@@ -45,7 +45,7 @@ public class WhatTheWord {
      3 wrong guesses: 1250 points
      4 wrong guesses: 625 points
      two elevated by the number of wrong guesses the user had divided by 100000
-     * @param gameStatus
+     * @param gameStatus the status where the score will be accumulated
      */
     public void calculateRightGuess(GameStatus gameStatus){
         long score = MAX_SCORE;
@@ -61,7 +61,7 @@ public class WhatTheWord {
      * and returns the index of the revealed letter.
      * @param gameStatus the current game
      * @return the index of the revealed letter.
-     * @throws GameOverException
+     * @throws GameOverException When hearts reach zero
      */
     public int calculateWrongGuess(GameStatus gameStatus) throws GameOverException{
         gameStatus.setHearts(gameStatus.getHearts() - 1);

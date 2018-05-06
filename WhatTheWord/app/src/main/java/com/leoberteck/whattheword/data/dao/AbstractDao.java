@@ -191,8 +191,9 @@ public abstract class AbstractDao<T extends BaseEntity, U extends BaseContractEn
             super(listener, contentResolver, t_contract);
         }
 
+        @SafeVarargs
         @Override
-        T_ENTITY doWork(T_ENTITY... t_entities) {
+        final T_ENTITY doWork(T_ENTITY... t_entities) {
             T_ENTITY toInsert = t_entities[0];
             ContentValues values = contract.serialize(toInsert);
             if(toInsert.getId() == null){
@@ -245,8 +246,9 @@ public abstract class AbstractDao<T extends BaseEntity, U extends BaseContractEn
             super(listener, contentResolver, t_contract);
         }
 
+        @SafeVarargs
         @Override
-        Integer doWork(T_ENTITY... t_entities) {
+        final Integer doWork(T_ENTITY... t_entities) {
             T_ENTITY toUpdate = t_entities[0];
             return contentResolver.update(
                 ContentUris.withAppendedId(contract.getContentUri(), toUpdate.getId())

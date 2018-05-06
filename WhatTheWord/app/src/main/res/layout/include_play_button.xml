@@ -10,5 +10,6 @@
         android:src="@android:drawable/ic_media_play"
         android:backgroundTint="@color/colorAccent"
         android:tint="@color/primaryText"
-        android:onClick="@{() -> vm.onPlayClick()}"/>
+        android:onClick="@{() -> vm.onPlayClick()}"
+        android:contentDescription="@string/start_game"/>
 </layout>
